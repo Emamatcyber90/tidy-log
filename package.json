@@ -1,0 +1,16 @@
+{
+  "name": "tidy-log",
+  "version": "0.0.0",
+  "description": "Helper to manage your `console`",
+  "author": "Yadong Ouyang <oyydoibh@gmail.com>",
+  "repository": "oyyd/tidy-log",
+  "license": "MIT",
+  "main": "tidy-log.js",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-less": "~0.11.3",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-concat": "^0.5.0"
+  }
+}
