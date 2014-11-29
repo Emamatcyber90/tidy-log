@@ -9,6 +9,8 @@ Currently under construction.
 * Small file and low overhead
 * Provide extra information for debug
 * Log manager
+* Extra log style 
+* Browsers compatility
 
 ##License
 
