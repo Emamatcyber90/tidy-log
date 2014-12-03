@@ -1,8 +1,10 @@
-###Tidy Log
+#Tidy Log
+
+Under construction...
+
+[![build status][travis-ci-build-status-img]][travis-ci-url]
 
 Helper to manage your `console`.
-
-Currently under construction.
 
 ##Features
 
@@ -12,6 +14,13 @@ Currently under construction.
 * Extra log style 
 * Browsers compatility
 
+##Usage
+
+##Test
+
 ##License
 
 [MIT](LICENSE)
+
+[travis-ci-build-status-img]:https://travis-ci.org/oyyd/tidy-log.svg?branch=master
+[travis-ci-url]:https://travis-ci.org/oyyd/tidy-log
