@@ -4,7 +4,7 @@ Under construction...
 
 [![build status][travis-ci-build-status-img]][travis-ci-url]
 
-Helper to manage your `console`.
+Helper to manage your `console.log()` in your browsers.
 
 ##Features
 
@@ -15,6 +15,22 @@ Helper to manage your `console`.
 * Browsers compatility
 
 ##Usage
+
+###tidyLog.configure(options)
+
+Config behaviors of logging.
+```js
+tidyLog.configure({
+  showTimeLabel:false
+});
+```
+
+__options__:
+
+Boolean `showTimeLabel`
+
+Default by `true`. Setting as `false` will stop showing time information in later logging.
+
 
 ##Test
 
