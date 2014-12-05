@@ -16,15 +16,6 @@ Helper to manage your `console.log()` in your browsers.
 
 ##Usage
 
-###tidyLog.configure(options)
-
-Config behaviors of logging.
-```js
-tidyLog.configure({
-  showTimeLabel:false
-});
-```
-
 __options__:
 
 Boolean `showTimeLabel`
