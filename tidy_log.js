@@ -7,12 +7,17 @@ tidyLog.options = {
   recordLog:false
 };
 
-tidyLog.Log = function(arg){  
+tidyLog.Log = function(args){
   this.date = Date.now();
   this.vars = [];
-  for(var index in arg){
-    this.vars.push(arg[index]);
+  for(var index in args){
+    this.vars.push(args[index]);
   }
+};
+
+tidyLog.Log.prototype.formatTime = function(){
+  var date = new Date(this.date);
+  return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 };
 
 tidyLog.Group = function(name,parent){
@@ -44,7 +49,7 @@ tidyLog.Group.prototype.log = function(){
   if(options.display){
     if(options.showTimeLabel){
       var vars = [].concat(log.vars);
-      vars.unshift('['+log.date+']');
+      vars.unshift('['+log.formatTime()+']');
       console.log.apply(console,vars);
     }else{
       console.log.apply(console,arguments);
@@ -54,6 +59,8 @@ tidyLog.Group.prototype.log = function(){
   if(options.recordLog){
     this.logs.push(arguments);
   }
+
+  return log;
 };
 
 tidyLog.Group.prototype.group = function(name){
@@ -63,6 +70,9 @@ tidyLog.Group.prototype.group = function(name){
 tidyLog.rootGroup = new tidyLog.Group('root',null);
 
 tidyLog.group = function(){
+  if(this.options.disable){
+    return;
+  }
   return this.rootGroup.group.apply(this.rootGroup,arguments);
 };
 

@@ -6,5 +6,9 @@ describe('Group',function(){
     it('should return "parent,child"',function(){
       expect(childGroup.fullPath()).toEqual("parent,child");
     });
+
+    it('should return "root,child"',function(){
+      expect(tidyLog.group('child').fullPath()).toEqual("root,child");
+    });
   });
 });
