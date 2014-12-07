@@ -10,14 +10,34 @@ tidyLog.options = {
 tidyLog.Log = function(args){
   this.date = Date.now();
   this.vars = [];
-  for(var index in args){
-    this.vars.push(args[index]);
+
+  if(args){
+    for(var i=0; i< args.length;i++){
+      this.vars.push(args[i]);
+    }    
   }
 };
 
-tidyLog.Log.prototype.formatTime = function(){
-  var date = new Date(this.date);
-  return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+tidyLog.Log.prototype.timeFormat = function(value){  
+  if(typeof value === 'number' && value<10){    
+    return '0' + value;
+  }
+  return value;
+};
+
+tidyLog.Log.prototype.getFormatedTime = function(){
+  var date = new Date(this.date);  
+  return this.timeFormat(date.getHours()) + ':' 
+    + this.timeFormat(date.getMinutes()) + ':' 
+    + this.timeFormat(date.getSeconds());
+};
+
+tidyLog.Log.prototype.displayLog = function(options){
+  var vars = [].concat(this.vars);
+  if(options.showTimeLabel){
+    vars.unshift('['+this.getFormatedTime()+']');    
+  }
+  console.log.apply(console,vars);  
 };
 
 tidyLog.Group = function(name,parent){
@@ -33,7 +53,7 @@ tidyLog.Group.prototype.fullPath = function(){
   while(node){
     path = node.name + ',' + path;
     node = node.parent;
-  }  
+  }
   path = path.slice(0,path.length-1);
   return path;
 };
@@ -47,13 +67,7 @@ tidyLog.Group.prototype.log = function(){
   var log = new tidyLog.Log(arguments);
   
   if(options.display){
-    if(options.showTimeLabel){
-      var vars = [].concat(log.vars);
-      vars.unshift('['+log.formatTime()+']');
-      console.log.apply(console,vars);
-    }else{
-      console.log.apply(console,arguments);
-    }
+    log.displayLog({showTimeLabel:options.showTimeLabel});
   }
 
   if(options.recordLog){

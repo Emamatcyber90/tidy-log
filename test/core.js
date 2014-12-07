@@ -20,7 +20,7 @@ describe('core',function(){
 
         var log = tidyLog.log('test');
 
-        expect(console.log).toHaveBeenCalledWith('['+log.formatTime()+']');
+        expect(console.log).toHaveBeenCalledWith('['+log.getFormatedTime()+']','test');
       });
       it('should log without time label',function(){
         tidyLog.config({
@@ -28,7 +28,7 @@ describe('core',function(){
         });        
         spyOn(console,'log');
 
-        tidyLog.log('test');
+        var log = tidyLog.log('test');
 
         expect(console.log).toHaveBeenCalledWith('test');
       });
