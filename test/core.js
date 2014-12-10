@@ -57,5 +57,24 @@ describe('core',function(){
         expect(console.log.calls.count()).toEqual(0);
       })
     });    
+
+    describe('showPath',function(){
+      it('should have path info',function(){
+        tidyLog.config({
+          display:true,
+          showTimeLabel:false,
+          showPath:true
+        });
+
+        spyOn(console,'log');
+
+        var log = tidyLog.group('xhr').log('test');
+
+        expect(console.log).toHaveBeenCalledWith(
+          '('+tidyLog.group('xhr').fullPath()+')',
+          'test'
+        );
+      });
+    });
   });
 });

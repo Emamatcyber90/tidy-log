@@ -2,6 +2,7 @@ var tidyLog = {};
 
 tidyLog.options = {
   showTimeLabel:true,
+  showPath:true,
   display:true,
   disable:false,
   recordLog:false
@@ -34,6 +35,10 @@ tidyLog.Log.prototype.getFormatedTime = function(){
 
 tidyLog.Log.prototype.displayLog = function(options){
   var vars = [].concat(this.vars);
+  if(options.path){
+    var path = options.path;
+    vars.unshift('('+options.path+')');
+  }
   if(options.showTimeLabel){
     vars.unshift('['+this.getFormatedTime()+']');    
   }
@@ -50,8 +55,8 @@ tidyLog.Group = function(name,parent){
 tidyLog.Group.prototype.fullPath = function(){
   var node = this,
     path = '';
-  while(node){
-    path = node.name + ',' + path;
+  while(node.parent){
+    path = node.name + '.' + path;
     node = node.parent;
   }
   path = path.slice(0,path.length-1);
@@ -67,15 +72,26 @@ tidyLog.Group.prototype.log = function(){
   var log = new tidyLog.Log(arguments);
   
   if(options.display){
-    log.displayLog({showTimeLabel:options.showTimeLabel});
+    log.displayLog({
+      showTimeLabel:options.showTimeLabel,
+      path:options.showPath?this.fullPath():''
+    });
   }
 
   if(options.recordLog){
-    this.logs.push(arguments);
+    this.logs.push(log);
   }
 
   return log;
 };
+
+tidyLog.Group.prototype.getLogs = function(){
+  return this.logs;
+};
+
+tidyLog.Group.prototype.getGroups = function(){
+  return this.childs;
+}
 
 tidyLog.Group.prototype.group = function(name){
   return this.childs[name] = new tidyLog.Group(name,this);
