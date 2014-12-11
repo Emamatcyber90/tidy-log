@@ -15,7 +15,7 @@ tidyLog.Log = function(args){
   if(args){
     for(var i=0; i< args.length;i++){
       this.vars.push(args[i]);
-    }    
+    }
   }
 };
 
@@ -89,9 +89,23 @@ tidyLog.Group.prototype.getLogs = function(){
   return this.logs;
 };
 
+tidyLog.Group.prototype.logHistory = function(){
+  var options = tidyLog.options,
+    log = null,
+    fullPath = this.fullPath();
+
+  for(var index in this.logs){
+    log = this.logs[index];
+    log.displayLog({
+      showTimeLabel:options.showTimeLabel,
+      path:options.showPath?fullPath:''
+    });
+  }
+};
+
 tidyLog.Group.prototype.getGroups = function(){
   return this.childs;
-}
+};
 
 tidyLog.Group.prototype.group = function(name){
   return this.childs[name] = new tidyLog.Group(name,this);
@@ -108,7 +122,11 @@ tidyLog.group = function(){
 
 tidyLog.log = function(){
   return this.rootGroup.log.apply(this.rootGroup,arguments);
-}
+};
+
+tidyLog.logHistory = function(){
+  return this.rootGroup.logHistory.apply(this.rootGroup,arguments);
+};
 
 tidyLog.config = function(options){
   if(typeof options === 'object'){
