@@ -18,7 +18,9 @@ describe('core',function(){
         });        
         spyOn(console,'log');
 
-        var log = tidyLog.log('test');
+        var logger = tidyLog.create();
+
+        var log = logger.log('test');
 
         expect(console.log).toHaveBeenCalledWith('['+log.getFormatedTime()+']','test');
       });
@@ -28,7 +30,8 @@ describe('core',function(){
         });        
         spyOn(console,'log');
 
-        var log = tidyLog.log('test');
+        var logger = tidyLog.create();
+        var log = logger.log('test');
 
         expect(console.log).toHaveBeenCalledWith('test');
       });
@@ -41,7 +44,8 @@ describe('core',function(){
         });
         spyOn(console,'log');
 
-        tidyLog.log('test');
+        var logger = tidyLog.create();
+        logger.log('test');
 
         expect(console.log.calls.count()).toEqual(1);
       });
@@ -52,7 +56,8 @@ describe('core',function(){
         });
         spyOn(console,'log');
 
-        tidyLog.log('test');
+        var logger = tidyLog.create();
+        logger.log('test');
 
         expect(console.log.calls.count()).toEqual(0);
       })
@@ -68,10 +73,11 @@ describe('core',function(){
 
         spyOn(console,'log');
 
-        var log = tidyLog.group('xhr').log('test');
+        var logger = tidyLog.create();
+        var log = logger.group('xhr').log('test');
 
         expect(console.log).toHaveBeenCalledWith(
-          '('+tidyLog.group('xhr').fullPath()+')',
+          '('+logger.group('xhr').fullPath()+')',
           'test'
         );
       });

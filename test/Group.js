@@ -1,6 +1,7 @@
 describe('Group',function(){
   describe('fullPath',function(){
-    var parentGroup = new tidyLog.Group('root',null),
+    var logger = tidyLog.create(),    
+      parentGroup = new tidyLog.Group('root',null),
       childGroup = new tidyLog.Group('child',parentGroup);
 
     it('should return "child"',function(){
@@ -8,7 +9,7 @@ describe('Group',function(){
     });
 
     it('should return "xhr.child"',function(){
-      expect(tidyLog.group('xhr').group('child').fullPath()).toEqual("xhr.child");
+      expect(logger.group('xhr').group('child').fullPath()).toEqual("xhr.child");
     });
   });
 
@@ -18,13 +19,14 @@ describe('Group',function(){
         recordLog:true
       });
 
+      var logger = tidyLog.create();      
       spyOn(console,'log');
 
-      tidyLog.log('first log');
-      tidyLog.log('second log');
-      tidyLog.log('third log');
+      logger.log('first log');
+      logger.log('second log');
+      logger.log('third log');
 
-      tidyLog.logHistory();
+      logger.logHistory();
 
       expect(console.log.calls.count()).toEqual(6);
     });

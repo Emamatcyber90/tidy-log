@@ -1,5 +1,9 @@
 var tidyLog = {};
 
+tidyLog.create = function(options){
+  return new tidyLog.Logger(options);
+};
+
 tidyLog.options = {
   showTimeLabel:true,
   showPath:true,
@@ -8,6 +12,17 @@ tidyLog.options = {
   recordLog:false
 };
 
+tidyLog.config = function(options){
+  if(typeof options === 'object'){
+    for(var key in options){
+      if(key in this.options){
+        this.options[key] = options[key];
+      }
+    }
+  }
+};
+
+// Log
 tidyLog.Log = function(args){
   this.date = Date.now();
   this.vars = [];
@@ -45,6 +60,7 @@ tidyLog.Log.prototype.displayLog = function(options){
   console.log.apply(console,vars);  
 };
 
+// Group
 tidyLog.Group = function(name,parent){
   this.name = name;
   this.parent = parent;
@@ -111,29 +127,21 @@ tidyLog.Group.prototype.group = function(name){
   return this.childs[name] = new tidyLog.Group(name,this);
 };
 
-tidyLog.rootGroup = new tidyLog.Group('root',null);
+tidyLog.Logger = function(options){
+  this.rootGroup = new tidyLog.Group('root',null);
 
-tidyLog.group = function(){
-  if(this.options.disable){
-    return;
-  }
-  return this.rootGroup.group.apply(this.rootGroup,arguments);
-};
-
-tidyLog.log = function(){
-  return this.rootGroup.log.apply(this.rootGroup,arguments);
-};
-
-tidyLog.logHistory = function(){
-  return this.rootGroup.logHistory.apply(this.rootGroup,arguments);
-};
-
-tidyLog.config = function(options){
-  if(typeof options === 'object'){
-    for(var key in options){
-      if(key in this.options){
-        this.options[key] = options[key];
-      }
+  this.group = function(){
+    if(tidyLog.options.disable){
+      return;
     }
-  }
+    return this.rootGroup.group.apply(this.rootGroup,arguments);
+  };
+
+  this.log = function(){
+    return this.rootGroup.log.apply(this.rootGroup,arguments);
+  };
+
+  this.logHistory = function(){
+    return this.rootGroup.logHistory.apply(this.rootGroup,arguments);
+  };
 };
