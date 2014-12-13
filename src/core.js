@@ -1,7 +1,7 @@
 var tidyLog = {};
 
-tidyLog.create = function(options){
-  return new tidyLog.Logger(options);
+tidyLog.create = function(){
+  return new tidyLog.Logger(this.options);
 };
 
 tidyLog.options = {
@@ -61,7 +61,8 @@ tidyLog.Log.prototype.displayLog = function(options){
 };
 
 // Group
-tidyLog.Group = function(name,parent){
+tidyLog.Group = function(name,parent,options){
+  this.options = options;
   this.name = name;
   this.parent = parent;
   this.childs = {};
@@ -80,7 +81,7 @@ tidyLog.Group.prototype.fullPath = function(){
 };
 
 tidyLog.Group.prototype.log = function(){
-  var options = tidyLog.options;
+  var options = this.options;
   if(options.disable){
     return;
   }
@@ -98,7 +99,7 @@ tidyLog.Group.prototype.log = function(){
     this.logs.push(log);
   }
 
-  return log;
+  return log; 
 };
 
 tidyLog.Group.prototype.getLogs = function(){
@@ -106,7 +107,7 @@ tidyLog.Group.prototype.getLogs = function(){
 };
 
 tidyLog.Group.prototype.logHistory = function(){
-  var options = tidyLog.options,
+  var options = this.options,
     log = null,
     fullPath = this.fullPath();
 
@@ -124,16 +125,13 @@ tidyLog.Group.prototype.getGroups = function(){
 };
 
 tidyLog.Group.prototype.group = function(name){
-  return this.childs[name] = new tidyLog.Group(name,this);
+  return this.childs[name] = new tidyLog.Group(name,this,this.options);
 };
 
-tidyLog.Logger = function(options){
-  this.rootGroup = new tidyLog.Group('root',null);
+tidyLog.Logger = function(options){    
+  this.rootGroup = new tidyLog.Group('root',null,Object.create(options));
 
   this.group = function(){
-    if(tidyLog.options.disable){
-      return;
-    }
     return this.rootGroup.group.apply(this.rootGroup,arguments);
   };
 
@@ -145,3 +143,5 @@ tidyLog.Logger = function(options){
     return this.rootGroup.logHistory.apply(this.rootGroup,arguments);
   };
 };
+
+tidyLog.util = {};
