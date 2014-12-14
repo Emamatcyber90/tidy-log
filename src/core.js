@@ -182,6 +182,8 @@
 
   /**
    * Recall `console.log` in all logs created by `this` group.
+   *
+   * __Note__: You have to set `recordLog` as `true` if you want to use `logHistory()`.
    * 
    * @api public
    */
@@ -210,7 +212,7 @@
   };
 
   /**
-   * Create a child group.
+   * Create a child group so that you can manage this kind of logs later.
    * 
    * @param  {String} name of the new group
    * @return {Group}
