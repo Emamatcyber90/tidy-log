@@ -1,6 +1,6 @@
 {
   "name": "tidy-log",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Helper to manage your `console`",
   "author": "Yadong Ouyang <oyydoibh@gmail.com>",
   "repository": "oyyd/tidy-log",

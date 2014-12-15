@@ -1,27 +1,32 @@
 #Tidy Log
 
-Under construction...
+>Helper to manage your `console.log()` in your browsers.
 
 [![build status][travis-ci-build-status-img]][travis-ci-url]
-
-Helper to manage your `console.log()` in your browsers.
 
 ##Features
 
 * Small file and low overhead
 * Provide extra information for debug
 * Log manager
+
+##Tasks
+
 * Extra log style 
 * Browsers compatility
 
 ##Usage
 
-<!-- __options__:
+Download the [tidy_log.js](https://github.com/oyyd/tidy-log/blob/master/tidy_log.js) or [tidy_log.min.js](https://github.com/oyyd/tidy-log/blob/master/tidy_log.min.js) and include the file in you page.
 
-Boolean `showTimeLabel`
+```js
+var logger = tidyLog.create();
 
-Default by `true`. Setting as `false` will stop showing time information in later logging.
- -->
+var xhr = logger.group('xhr');
+
+xhr.log('start log');
+```
+
 ##Api
 
 ####tidyLog.config([options])
