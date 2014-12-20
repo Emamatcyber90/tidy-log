@@ -2,7 +2,7 @@
 
 >Helper to manage your `console.log()` in your browsers.
 
-[![build status][travis-ci-build-status-img]][travis-ci-url]
+[![build status][travis-ci-build-status-img]][travis-ci-url] [![code climate][code-climate-score-img]][code-climate-url]
 
 ##Features
 
@@ -110,3 +110,5 @@ Command `karma run`.
 
 [travis-ci-build-status-img]:https://travis-ci.org/oyyd/tidy-log.svg?branch=master
 [travis-ci-url]:https://travis-ci.org/oyyd/tidy-log
+[code-climate-score-img]:https://codeclimate.com/github/oyyd/tidy-log/badges/gpa.svg
+[code-climate-url]:https://codeclimate.com/github/oyyd/tidy-log
