@@ -82,9 +82,9 @@
    */
   tidyLog.Log.prototype.getFormatedTime = function(){
     var date = new Date(this.date);  
-    return this.timeFormat(date.getHours()) + ':' 
-      + this.timeFormat(date.getMinutes()) + ':' 
-      + this.timeFormat(date.getSeconds());
+    return this.timeFormat(date.getHours()) + ':' +
+      this.timeFormat(date.getMinutes()) + ':' +
+      this.timeFormat(date.getSeconds());
   };
 
   /**
@@ -97,7 +97,7 @@
     var vars = [].concat(this.vars);
     if(options.path){
       var path = options.path;
-      vars.unshift('('+options.path+')');
+      vars.unshift('('+path+')');
     }
     if(options.showTimeLabel){
       vars.unshift('['+this.getFormatedTime()+']');    
@@ -190,9 +190,10 @@
   tidyLog.Group.prototype.logHistory = function(){
     var options = this.options,
       log = null,
-      fullPath = this.fullPath();
+      fullPath = this.fullPath(),
+      index = 0;
 
-    for(var index in this.logs){
+    for(index = 0; index < this.logs.length; index++){
       log = this.logs[index];
       log.displayLog({
         showTimeLabel:options.showTimeLabel,
@@ -219,7 +220,8 @@
    * @api public
    */
   tidyLog.Group.prototype.group = function(name){
-    return this.childs[name] = new tidyLog.Group(name,this,this.options);
+    this.childs[name] = new tidyLog.Group(name,this,this.options);
+    return this.childs[name];
   };
 
   /**
