@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "description": "Helper to manage your `console`",
   "author": "Yadong Ouyang <oyydoibh@gmail.com>",
-  "repository": "oyyd/tidy-log",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyyd/tidy-log"
+  },
   "license": "MIT",
   "main": "tidy-log.js",
   "devDependencies": {
@@ -21,5 +24,15 @@
   },
   "scripts": {
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/oyyd/tidy-log/issues"
+  },
+  "homepage": "https://github.com/oyyd/tidy-log",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "log"
+  ]
 }
